@@ -179,7 +179,7 @@ function load_primal_solution!(primal::Array{Float64,1}, var_to_ranges::Dict{UIn
   end
 end
 
-function populate_duals!{T}(constraints::Array{ConicConstr}, dual::Array{T, 1})
+function populate_duals!(constraints::Array{ConicConstr}, dual::Array{T, 1}) where T
   constr_index = 1
   for constraint in constraints
     # conic_constr_to_constr only has keys for conic constraints with a single objective

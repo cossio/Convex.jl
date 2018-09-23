@@ -51,7 +51,7 @@ function conic_form!(x::HcatAtom, unique_conic_forms::UniqueConicForms=UniqueCon
     for objective in objectives
       for id in keys(objective)
         if !(id in keys(variable_to_sizes))
-          if id == object_id(:constant)
+          if id == objectid(:constant)
             variable_to_sizes[id] = 1
           else
             variable_to_sizes[id] = get_vectorized_size(id_to_variables[id])
@@ -127,12 +127,12 @@ Base.vect(args::AbstractExprOrValue...) = transpose(HcatAtom([transpose(convert(
 
 function Base.vect(args::Value...)
     T = Base.promote_typeof(args...)
-    return copy!(Array{T}(length(args)), args)
+    return copyto!(Array{T}(undef, length(args)), args)
 end
 
 # from https://github.com/JuliaLang/julia/blob/0d7248e2ff65bd6886ba3f003bf5aeab929edab5/base/abstractarray.jl#L1335-L1371
 # fallback definition of hvcat in terms of hcat and vcat
-function hvcat(rows::Tuple{Vararg{Int}}, as::Vararg{AbstractExprOrValue}) 
+function hvcat(rows::Tuple{Vararg{Int}}, as::Vararg{AbstractExprOrValue})
   nbr = length(rows)  # number of block rows
   rs = Array{Any,1}(nbr)
   a = 1

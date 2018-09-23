@@ -46,7 +46,7 @@ function curvature(x::DiagMatrixAtom)
 end
 
 function evaluate(x::DiagMatrixAtom)
-  return diagm(vec(evaluate(x.children[1])))
+  return diagm(0 => vec(evaluate(x.children[1])))
 end
 
 diagm(x::AbstractExpr) = DiagMatrixAtom(x)

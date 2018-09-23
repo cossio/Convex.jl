@@ -33,7 +33,7 @@ mutable struct Problem
     if sign(objective)== Convex.ComplexSign()
       error("Objective can not be a complex expression")
     else
-      return new(head, objective, constraints, "not yet solved", nothing, model)
+      return new(head, objective, constraints, Symbol("not yet solved"), nothing, model)
     end
   end
 end
@@ -57,7 +57,7 @@ function find_variable_ranges(constraints)
   for constraint in constraints
     for i = 1:length(constraint.objs)
       for (id, val) in constraint.objs[i]
-        if !haskey(var_to_ranges, id) && id != object_id(:constant)
+        if !haskey(var_to_ranges, id) && id != objectid(:constant)
           var = id_to_variables[id]
           if var.sign == ComplexSign()
             var_to_ranges[id] = (index + 1, index + 2*get_vectorized_size(var))
@@ -143,7 +143,7 @@ function conic_problem(p::Problem)
     for i = 1:length(constraint.objs)
       sz = constraint.sizes[i]
       for (id, val) in constraint.objs[i]
-        if id == object_id(:constant)
+        if id == objectid(:constant)
           for l in 1:sz
             b[constr_index + l] = val[1][l]==0 ? val[2][l] : val[1][l]
           end

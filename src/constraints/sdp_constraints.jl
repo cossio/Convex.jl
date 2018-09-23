@@ -47,7 +47,7 @@ function conic_form!(c::SDPConstraint, unique_conic_forms::UniqueConicForms=Uniq
     # symmetry => c.child[upperpart]
     # scale off-diagonal elements by sqrt(2)
     rescale = sqrt(2)*tril(ones(n,n))
-    rescale[find(diagm(ones(n)))] = 1.0
+    rescale[find(diagm(0 => ones(n)))] = 1.0
     diagandlowerpart = find(rescale)
     lowerpart = Array{Int}(div(n*(n-1),2))
     upperpart = Array{Int}(div(n*(n-1),2))

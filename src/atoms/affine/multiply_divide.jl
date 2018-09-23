@@ -11,6 +11,8 @@ export broadcast
 export sign, monotonicity, curvature, evaluate, conic_form!
 import Base./
 
+import SparseArrays.spdiagm
+
 ### Scalar and matrix multiplication
 
 struct MultiplyAtom <: AbstractExpr

@@ -1,5 +1,6 @@
 using Convex
-using Base.Test
+using LinearAlgebra
+using Test
 
 TOL = 1e-3
 
@@ -23,7 +24,7 @@ TOL = 1e-3
     @test isapprox((evaluate(2.0x))[1], 4, atol=TOL)
 
     x = Variable(2)
-    A = 1.5 * eye(2)
+    A = 1.5 * Matrix{Float64}(I, 2, 2)
     p = minimize([2 2] * x, [A * x >= [1.1; 1.1]])
     @test vexity(p) == AffineVexity()
     solve!(p)

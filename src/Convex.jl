@@ -2,7 +2,8 @@ __precompile__()
 
 module Convex
 import DataStructures
-importall Base.Operators
+using LinearAlgebra
+# importall Base.Operators
 using Compat
 
 global DEFAULT_SOLVER = nothing

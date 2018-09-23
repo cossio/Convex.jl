@@ -1,6 +1,7 @@
 import MathProgBase
 export can_solve_mip, can_solve_socp, can_solve_sdp, can_solve_exp
 export set_default_solver, get_default_solver
+import Pkg
 
 function set_default_solver(solver::MathProgBase.AbstractMathProgSolver)
   global DEFAULT_SOLVER
@@ -23,9 +24,13 @@ solvers = [("SCS", "SCSSolver"), ("ECOS", "ECOSSolver"), ("Gurobi", "GurobiSolve
           ("GLPKMathProgInterface", "GLPKSolverMIP")]
 
 function isinstalled(pkg)
-    if isdir(Pkg.dir(pkg)); return true; end
-    for path in Base.LOAD_PATH
-        if isdir(joinpath(path, pkg)); return true; end
+  # TEMP fix. Maybe use https://github.com/MikeInnes/Requires.jl.
+    # if isdir(Pkg.dir(pkg)); return true; end
+    # for path in Base.LOAD_PATH
+        # if isdir(joinpath(path, pkg)); return true; end
+    # end
+    if pkg == "SCS"
+      return true
     end
     return false
 end

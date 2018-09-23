@@ -1,5 +1,5 @@
-import Base.vcat, Base.hcat
-export vcat, hcat, HcatAtom
+import Base.vcat, Base.hcat, Base.hvcat
+export vcat, hcat, HcatAtom, hvcat
 export sign, curvature, monotonicity, evaluate, conic_form!
 
 struct HcatAtom <: AbstractExpr
@@ -124,13 +124,21 @@ vcat(args::Value...) = Base.cat(1, args...) # Note: this makes general vcat slow
 Base.vect(args::T...) where {T<:AbstractExpr} = transpose(HcatAtom([transpose(arg) for arg in args]...))
 Base.vect(args::AbstractExpr...) = transpose(HcatAtom([transpose(arg) for arg in args]...))
 Base.vect(args::AbstractExprOrValue...) = transpose(HcatAtom([transpose(convert(AbstractExpr,arg)) for arg in args]...))
-if Base._oldstyle_array_vcat_
-  Base.vect(args::Value...) = Base.vcat(args...)
-  # This is ugly, because the method redefines simple cases like [1,2,3]
-        
-else
-    function Base.vect(args::Value...)
-        T = Base.promote_typeof(args...)
-        return copy!(Array{T}(length(args)), args)
-    end
+
+function Base.vect(args::Value...)
+    T = Base.promote_typeof(args...)
+    return copy!(Array{T}(length(args)), args)
+end
+
+# from https://github.com/JuliaLang/julia/blob/0d7248e2ff65bd6886ba3f003bf5aeab929edab5/base/abstractarray.jl#L1335-L1371
+# fallback definition of hvcat in terms of hcat and vcat
+function hvcat(rows::Tuple{Vararg{Int}}, as::Vararg{T}) where {T<:AbstractExprOrValue}
+  nbr = length(rows)  # number of block rows
+  rs = Array{Any,1}(nbr)
+  a = 1
+  for i = 1:nbr
+      rs[i] = hcat(as[a:a-1+rows[i]]...)
+      a += rows[i]
+  end
+  vcat(rs...)
 end

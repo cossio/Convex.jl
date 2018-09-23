@@ -132,7 +132,7 @@ end
 
 # from https://github.com/JuliaLang/julia/blob/0d7248e2ff65bd6886ba3f003bf5aeab929edab5/base/abstractarray.jl#L1335-L1371
 # fallback definition of hvcat in terms of hcat and vcat
-function hvcat(rows::Tuple{Vararg{Int}}, as::Vararg{T}) where {T<:AbstractExprOrValue}
+function hvcat(rows::Tuple{Vararg{Int}}, as::Vararg{AbstractExprOrValue}) 
   nbr = length(rows)  # number of block rows
   rs = Array{Any,1}(nbr)
   a = 1

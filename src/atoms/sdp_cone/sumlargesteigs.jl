@@ -5,7 +5,7 @@
 # All expressions and atoms are subtypes of AbstractExpr.
 # Please read expressions.jl first.
 #############################################################################
-import Base.eigvals
+import LinearAlgebra.eigvals
 export sumlargesteigs
 
 ### sumlargesteigs

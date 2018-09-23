@@ -5,7 +5,7 @@
 # Please read expressions.jl first.
 #############################################################################
 
-import Base.log
+import LinearAlgebra.log
 export log
 export sign, curvature, monotonicity, evaluate
 

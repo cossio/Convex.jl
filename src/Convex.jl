@@ -3,6 +3,7 @@ __precompile__()
 module Convex
 import DataStructures
 using LinearAlgebra
+import SparseArrays.spzeros
 # importall Base.Operators
 using Compat
 

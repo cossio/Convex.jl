@@ -9,6 +9,7 @@
 import Base.broadcast
 export broadcast
 export sign, monotonicity, curvature, evaluate, conic_form!
+import Base./
 
 ### Scalar and matrix multiplication
 
@@ -103,7 +104,7 @@ end
 
 *(x::Value, y::AbstractExpr) = MultiplyAtom(Constant(x), y)
 *(x::AbstractExpr, y::Value) = MultiplyAtom(x, Constant(y))
-/(x::AbstractExpr, y::Value) = MultiplyAtom(x, Constant(1./y))
+/(x::AbstractExpr, y::Value) = MultiplyAtom(x, Constant(1 ./y))
 
 ### .*
 # All constructors of this check (and so this function requires)
@@ -205,5 +206,5 @@ function broadcast(::typeof(*), x::AbstractExpr, y::AbstractExpr)
 end
 broadcast(::typeof(*), x::Value, y::AbstractExpr) = DotMultiplyAtom(Constant(x), y)
 broadcast(::typeof(*), x::AbstractExpr, y::Value) = DotMultiplyAtom(Constant(y), x)
-broadcast(::typeof(/), x::AbstractExpr, y::Value) = DotMultiplyAtom(Constant(1./y), x)
+broadcast(::typeof(/), x::AbstractExpr, y::Value) = DotMultiplyAtom(Constant(1 ./y), x)
 # x ./ y and x / y for x constant, y variable is defined in second_order_cone.qol_elemwise.jl

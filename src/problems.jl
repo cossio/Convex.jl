@@ -3,7 +3,7 @@ import MathProgBase
 export Problem, Solution, minimize, maximize, satisfy, add_constraint!, add_constraints!
 export Float64OrNothing
 
-const Float64OrNothing = Union{Float64, Void}
+const Float64OrNothing = Union{Float64, Nothing}
 
 # TODO: Cleanup
 mutable struct Solution{T<:Number}

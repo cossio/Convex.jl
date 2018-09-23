@@ -1,4 +1,4 @@
-import Base.broadcast
+import Base.broadcast, Base./
 export QolElemAtom, qol_elementwise, square, sumsquares, invpos, /
 export sign, monotonicity, curvature, conic_form!, broadcast
 

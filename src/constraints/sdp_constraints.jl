@@ -1,4 +1,4 @@
-import Base.isposdef, Base.in
+import LinearAlgebra.isposdef, Base.in
 export SDPConstraint, isposdef, in, ⪰, ⪯
 
 ### Positive semidefinite cone constraint

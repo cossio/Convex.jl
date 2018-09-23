@@ -1,4 +1,4 @@
-import Base.dot, Base.vecdot
+import LinearAlgebra.dot, LinearAlgebra.vecdot
 export vecdot, dot
 
 
